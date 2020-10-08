@@ -1,5 +1,5 @@
 # CITS2002-Project-2
-Systems Programming Project 2
+#### Systems Programming Project 2
 
 The goal of this project is to write a command-line utility program in C99, named mergetars, which merges the contents of multiple tar archive files into a single tar archive file.
 
