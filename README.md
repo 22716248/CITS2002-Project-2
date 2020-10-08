@@ -5,7 +5,7 @@ The goal of this project is to write a command-line utility program in C99, name
 
 Successful completion of the project will develop your understanding of advanced features of the C99 programming language, and many useful Linux operating system system-calls and POSIX function calls.
 
-##Quick Overview:
+### Quick Overview:
 > *feel free to change this up!*
 
 1. **loop** through each *tar* file, given as string in main. (may need to be opened as temporary as well?)
