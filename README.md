@@ -12,7 +12,7 @@ Successful completion of the project will develop your understanding of advanced
 2. create a *new* **temporary** file, which will be the *final* file.
 3. **compare** the contents of *current* tar and *final* tar
 4. **add/replace** most *recent file* from currently *looping* tar to *final* tar
-  - This will be decided by the *name, file location and date* of the currently selected file.
+   - This will be decided by the *name, file location and date* of the currently selected file.
 5. ensure the program **cleans up** and releases *unused memory*.
 6. **output** the *final, merged file* to user.
 
