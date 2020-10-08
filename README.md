@@ -14,3 +14,11 @@ Successful completion of the project will develop your understanding of advanced
 4. **add/replace** most *recent file* from currently *looping* tar to *final* tar
   - This will be decided by the *name, file location and date* of the currently selected file.
 5. ensure the program **cleans up** and releases *unused memory*.
+6. **output** the *final, merged file* to user.
+
+## Files planned to add
+- globals.c
+- processfile.c  
+- mergefile.c
+- mergetars.c
+- compare.c
