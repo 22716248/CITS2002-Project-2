@@ -11,7 +11,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
-#include <sys/sysmacros.h>
 
 
 int isDir(const char *file_path)
@@ -42,17 +41,14 @@ void walkDir(char *basedir)
                 continue;
             }
             
-
-            //this is busted
             char entpath[] = "";
-            char *entpath = (char*) malloc(12*sizeof(basedir));
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
 
             int dir_check = isDir(entpath);
 
-            if (dir_check == 0) //folder
+            if (dir_check) //folder
             {
                 printf("\n\tDIR: %s\n", ent->d_name);
 
