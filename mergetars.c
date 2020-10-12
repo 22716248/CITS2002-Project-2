@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/sysmacros.h>
+#include <sys/param.h>
 
 
 int isDir(const char *file_path)
@@ -26,7 +27,6 @@ void walkDir(char *basedir)
 {
 
     DIR *dir;
-    //char b[512];
     struct dirent *ent;
 
     dir = opendir(basedir);
@@ -44,15 +44,14 @@ void walkDir(char *basedir)
             
 
             //this is busted
-            char entpath[] = "";
-            char *entpath = (char*) malloc(12*sizeof(basedir));
+            char entpath[MAXPATHLEN] = "";
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
 
             int dir_check = isDir(entpath);
 
-            if (dir_check == 0) //folder
+            if (dir_check) //folder
             {
                 printf("\n\tDIR: %s\n", ent->d_name);
 
