@@ -22,17 +22,25 @@ Successful completion of the project will develop your understanding of advanced
 
 //put into github, orginise into files, make makefile
 
-## test
+## Files
 ```diff
-- processfile.c ->
-+ globals.c ->
-! mergefile.c ->
-# tars.c ->
-@@ mergefile.c -> @@
+- processfile.c -> compare.c, globals.c
++ globals.c -> N/A
+! compare.c -> globals.c, tars.c
+# tars.c -> globals.c
+@ mergefile.c -> processfile.c, globals.c, mergefile.c, tars.c
+```
+33 Functions
+```diff
+- processfile.c -> walkDir, readWrite, removeFile, makeFile, makeTempFile
++ globals.c -> GLOBALS
+! compare.c -> compareTimes, compareSize
+# tars.c -> Tar (tar and untar)
+@ mergefile.c -> Free + ABOVE
 ```
 
 
-### Quick Overview:
+### Quick DRAFT Overview:
 > *feel free to change this up!*
 
 1. **loop** through each *tar* file, given as string in main. (may need to be opened as temporary as well?)
@@ -42,10 +50,3 @@ Successful completion of the project will develop your understanding of advanced
    - This will be decided by the *name, file location and date* of the currently selected file.
 5. ensure the program **cleans up** and releases *unused memory*.
 6. **output** the *final, merged file* to user.
-
-## Files planned to add
-- globals.c
-- processfile.c  
-- mergefile.c
-- mergetars.c
-- compare.c
