@@ -94,3 +94,21 @@ int main(int argc, char *argv[])
 
     printf("\n====DONE====\n");
 }
+
+//main
+
+//while over argv[] ->> ;
+//temppath = mktemp();
+//makeFinal(output_tarfile (argv[-1]) );
+    //mkdir();
+//untar(tarX);
+//walkDir(temppath);
+    // compareTimes();
+        //compareSize();
+        //readWrite();
+//tar(temppath);
+//rm temppath;
+//free memory
+//return Final;
+
+//put into github, orginise into files, make makefile
