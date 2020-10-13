@@ -11,7 +11,7 @@ Successful completion of the project will develop your understanding of advanced
 - *finalpath* = **makeFile**(output_tarfile (argv[-1]) );
   - *mkdir*();
 - **while** over *argv[]*;
-  - *unTar*(argv[N], *temppath*);
+  - **unTar**(argv[N], *temppath*);
   - **walkDir**(temppath);
     - **compareTimes**(*temppath*, *finalpath*);
       - **compareSize**(file1, file2);
