@@ -44,22 +44,31 @@ void walkDir(char *basedir)
             
 
             //this is busted
+
+            //c/user/documents/check
             char entpath[MAXPATHLEN] = "";
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
+            ///one
+            ///two
+            ///three
 
             int dir_check = isDir(entpath);
 
             if (dir_check) //folder
             {
                 printf("\n\tDIR: %s\n", ent->d_name);
-
+                
                 walkDir(entpath);
             }
             else //file itself
             {
                 printf("\n\tFILE: %s\n", ent->d_name);
+                char currentfilepath[] = strcat(entpath , ent->d_name);
+                //oldfile = getOldfile(currentfilepath);
+                //-1, 0, 1
+                //compareTime(currentfilepath, oldfilepath);
             }
 
 
@@ -80,7 +89,7 @@ int main(int argc, char *argv[])
 {
     printf("\n====START====");
 
-    char basedir[] = "/mnt/c/Users/Kuba/Documents/github/CITS2002-Project-2/test";
+    char basedir[] = "/mnt/c/Users/Kuba/Documents/github/CITS2002-Project-2/file1";
     walkDir(basedir);
 
     printf("\n====DONE====\n");
