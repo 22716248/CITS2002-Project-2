@@ -27,10 +27,9 @@ Successful completion of the project will develop your understanding of advanced
 ! compare.c -> globals.c, tars.c
 # tars.c -> globals.c
 @@ mergefile.c -> processfile.c, globals.c, mergefile.c, tars.c
-
-***makefile*** to link above
-
 ```
+***makefile*** **to link above**
+
 ## Functions
 ```diff
 - processfile.c -> walkDir, readWrite, removeFile, makeFile, makeTempFile
