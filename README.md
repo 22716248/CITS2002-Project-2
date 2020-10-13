@@ -20,8 +20,6 @@ Successful completion of the project will develop your understanding of advanced
 - **removeFile**(*temppath* AND *finalpath*);
 - **Free**(memory) (if needed)
 
-//put into github, orginise into files, make makefile
-
 ## Files
 ```diff
 - processfile.c -> compare.c, globals.c
@@ -29,8 +27,11 @@ Successful completion of the project will develop your understanding of advanced
 ! compare.c -> globals.c, tars.c
 # tars.c -> globals.c
 @ mergefile.c -> processfile.c, globals.c, mergefile.c, tars.c
+
+***makefile*** to link above 
+
 ```
-33 Functions
+## Functions
 ```diff
 - processfile.c -> walkDir, readWrite, removeFile, makeFile, makeTempFile
 + globals.c -> GLOBALS
@@ -38,15 +39,3 @@ Successful completion of the project will develop your understanding of advanced
 # tars.c -> Tar (tar and untar)
 @ mergefile.c -> Free + ABOVE
 ```
-
-
-### Quick DRAFT Overview:
-> *feel free to change this up!*
-
-1. **loop** through each *tar* file, given as string in main. (may need to be opened as temporary as well?)
-2. create a *new* **temporary** file, which will be the *final* file.
-3. **compare** the contents of *current* tar and *final* tar
-4. **add/replace** most *recent file* from currently *looping* tar to *final* tar
-   - This will be decided by the *name, file location and date* of the currently selected file.
-5. ensure the program **cleans up** and releases *unused memory*.
-6. **output** the *final, merged file* to user.
