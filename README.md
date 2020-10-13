@@ -5,6 +5,33 @@ The goal of this project is to write a command-line utility program in C99, name
 
 Successful completion of the project will develop your understanding of advanced features of the C99 programming language, and many useful Linux operating system system-calls and POSIX function calls.
 
+### Main Overview
+
+- *temppath* = **makeTempFile**();
+- *finalpath* = **makeFile**(output_tarfile (argv[-1]) );
+  - *mkdir*();
+- **while** over *argv[]*;
+  - *unTar*(argv[N], *temppath*);
+  - **walkDir**(temppath);
+    - **compareTimes**(*temppath*, *finalpath*);
+      - **compareSize**(file1, file2);
+      - **readWrite**(filepath);
+- **Tar**(*finalpath*);
+- **removeFile**(*temppath* AND *finalpath*);
+- **Free**(memory) (if needed)
+
+//put into github, orginise into files, make makefile
+
+## test
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```
+
+
 ### Quick Overview:
 > *feel free to change this up!*
 
