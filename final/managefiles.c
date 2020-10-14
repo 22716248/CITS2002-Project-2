@@ -148,6 +148,12 @@ int copyFile(char *source, char *destination){
         perror("chmod()");
         return -1;
     }
+    int cherror2 = utime(destination, s.st_mtime);
+    if (cherror2 != 0){
+        perror("utime()");
+        return -1;
+    }
+    
 
     char BUFFER[BUFFER_SIZE];
     int read_value;

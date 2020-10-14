@@ -12,5 +12,7 @@
 #include <sys/stat.h>
 
 #include "globals.c"
+#include <utime.h>
+#include <sys/time.h>
 
 
