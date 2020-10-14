@@ -142,8 +142,8 @@ int copyFile(char *source, char *destination){
         return -1;
     }
 
-    struct stat s = getStat(source_desc);
-    int cherror = chmod(destination_desc, s.st_mode);
+    struct stat s = getStat(source);
+    int cherror = chmod(destination, s.st_mode);
     if (cherror != 0){
         perror("chmod()");
         return -1;
