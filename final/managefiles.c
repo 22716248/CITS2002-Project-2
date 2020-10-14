@@ -1,4 +1,4 @@
-#include <headers.h>
+#include "headers.h"
 
 #define tarfile "file.tar"
 #define checkDir "/temp/test"
@@ -55,10 +55,6 @@ int Tar()
     return 0;
 }
 
-void copyFile(){
-
-}
-
 char * makeTemporary(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
     char *dir_name = mkdtemp(template);
@@ -99,4 +95,49 @@ void removeFinal(char *location){
     }
 }
 
+//mainly from lecture 9
+int copyFile(char *source, char *destination){
 
+    int source_desc = open(source, O_RDONLY);
+    if (source_desc == -1){
+        printf("sourcefailed\n");
+        return -1;
+    }
+
+    int destination_desc = open(destination, O_WRONLY);
+    if (destination_desc == -1){
+        printf("destfailed\n");
+        close(source_desc);
+        return -1;
+    }
+
+    char BUFFER[BUFFER_SIZE];
+    int read_value;
+
+    while ((read_value = read(source_desc, BUFFER, sizeof BUFFER)) > 0)
+    {
+        if(write(destination_desc, BUFFER, read_value) != read_value){
+            printf("copyFile failed \n");
+            close(source_desc); close(destination_desc);
+            return -1;
+        }
+    }
+    close(source_desc); close(destination_desc);
+    return 0;
+}
+
+
+//this tests copyfile
+/**
+int main(int argc, char *argv[]){
+    char *f1 = argv[1];
+    char *f2 = argv[2];
+    printf("running...");
+    if (copyFile(f1,f2) == -1){
+        printf("failed...\n");
+        return -1;
+    }
+    printf(" ! didntcrashthatsgood ! \n");
+    return 0;
+}
+**/
