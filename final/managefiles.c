@@ -59,32 +59,44 @@ void copyFile(){
 
 }
 
-int makeTempFile()
-{
-        char template[] = "/tmp/tmpdir.XXXXXX";
-        char *dir_name = mkdtemp(template);
+char * makeTemporary(void){
+    char template[] = "/tmp/tmpdir.XXXXXX";
+    char *dir_name = mkdtemp(template);
 
-        if(dir_name == NULL)
-        {
-                perror("mkdtemp failed: ");
-                return 0;
-        }
+    if(dir_name == NULL)
+    {
+            perror("mkdtemp failed: ");
+    }
 
-        /* Use it here */
-        printf("%s", dir_name);
+    return dir_name;
+}
 
 
+void removeTemporary(char *location){
+    if(rmdir(location) == -1)
+    {
+        perror("rmdir failed: ");
+    }
+}
 
-        /* Don't forget to delete the folder afterwards. */
-        if(rmdir(dir_name) == -1)
-        {
-                perror("rmdir failed: ");
-                return 0;
-        }
+char * makeFinal(void){
+    char template[] = "/tmp/tmpdir.XXXXXX";
+    char *dir_name = mkdtemp(template);
+
+    if(dir_name == NULL)
+    {
+            perror("mkdtemp failed: ");
+    }
+
+    return dir_name;
+}
 
 
-        return 0;
-
+void removeFinal(char *location){
+    if(rmdir(location) == -1)
+    {
+        perror("rmdir failed: ");
+    }
 }
 
 
