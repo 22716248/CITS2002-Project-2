@@ -55,10 +55,6 @@ int Tar()
     return 0;
 }
 
-void removeFile(char *finalpath){
-
-}
-
 void copyFile(){
 
 }
@@ -90,4 +86,5 @@ int makeTempFile()
         return 0;
 
 }
+
 
