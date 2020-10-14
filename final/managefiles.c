@@ -3,6 +3,7 @@
 #define tarfile "file.tar"
 #define checkDir "/temp/test"
 
+//also need to check  if compressed or not in Tar and untar
 
 int unTar()
 {
