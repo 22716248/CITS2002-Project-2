@@ -3,9 +3,6 @@
 //  Name(s):             Jakub Wysocki (, student-name2)
 //  Student number(s):   22716248 (, student-number2)
 
-#include <dirent.h>
-#include <stdio.h> 
-#include <stdlib.h>
 #include <headers.h>
 
 /**
