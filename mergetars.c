@@ -23,7 +23,7 @@ int isDir(const char *file_path)
     return test;
 }
 
-void walkDir(char *basedir)
+void processFiles(char *basedir)
 {
 
     DIR *dir;
@@ -83,20 +83,25 @@ int main(int argc, char *argv[])
     printf("\n====DONE====\n");
 }
 
-//main
+/**
+ * This will be the actual main
+ * */
 
-//while over argv[] ->> ;
-//temppath = mktemp();
-//makeFinal(output_tarfile (argv[-1]) );
-    //mkdir();
-//untar(tarX);
-//walkDir(temppath);
-    // compareTimes();
-        //compareSize();
-        //readWrite();
-//tar(temppath);
-//rm temppath;
-//free memory
-//return Final;
+int main(int argc, char *argv[]){
+    char tempPath[] = makeTempFile();
+    char finalPath[] = makeTempFile();
+    size_t numberOfTars = sizeof(argv)/sizeof(argv[0]);
+    char output_name[] = argv[numberOfTars];
 
-//put into github, orginise into files, make makefile
+    int currentTar = 0;
+    while(currentTar != numberOfTars - 1){
+        unTar(argv[currentTar], tempPath); //untar into temppath
+        processFiles(tempPath, finalPath);
+        currentTar++;
+    }
+
+    Tar(finalPath, output_name);
+    removeFile(tempPath);
+    removeFile(finalPath);
+
+}
