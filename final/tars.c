@@ -20,7 +20,7 @@
 #define checkDir "/temp/test"
 
 
-int main()
+int unTar()
 {
     pid_t pid;
     int waiting;

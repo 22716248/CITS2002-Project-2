@@ -1,8 +1,8 @@
 
-//  CITS2002 Project 2 2020
-//  Name(s):             Jakub Wysocki (, student-name2)
-//  Student number(s):   22716248 (, student-number2)
+//make a temporary directory
+//https://stackoverflow.com/questions/18792489/how-to-create-a-temporary-directory-in-c
 
+#include <unistd.h>
 #include <dirent.h>
 #include <stdio.h> 
 #include <stdlib.h>
@@ -13,7 +13,6 @@
 #include <errno.h>
 #include <sys/sysmacros.h>
 #include <sys/param.h>
-
 
 int isDir(const char *file_path)
 {
@@ -72,36 +71,30 @@ void processFiles(char *basedir)
     }
 }
 
-
-int main(int argc, char *argv[])
+int makeTempFile()
 {
-    printf("\n====START====");
+        char template[] = "/tmp/tmpdir.XXXXXX";
+        char *dir_name = mkdtemp(template);
 
-    char basedir[] = "/mnt/e/OneDrive - The University of Western Australia/[uni] Study/[2020] Semester 2/CITS2002/Projects/beta/";
-    walkDir(basedir);
+        if(dir_name == NULL)
+        {
+                perror("mkdtemp failed: ");
+                return 0;
+        }
 
-    printf("\n====DONE====\n");
-}
+        /* Use it here */
+        printf("%s", dir_name);
 
-/**
- * This will be the actual main
- * */
 
-int main(int argc, char *argv[]){
-    char tempPath[] = makeTempFile();
-    char finalPath[] = makeTempFile();
-    size_t numberOfTars = sizeof(argv)/sizeof(argv[0]);
-    char output_name[] = argv[numberOfTars];
 
-    int currentTar = 0;
-    while(currentTar != numberOfTars - 1){
-        unTar(argv[currentTar], tempPath); //untar into temppath
-        processFiles(tempPath, finalPath);
-        currentTar++;
-    }
+        /* Don't forget to delete the folder afterwards. */
+        if(rmdir(dir_name) == -1)
+        {
+                perror("rmdir failed: ");
+                return 0;
+        }
 
-    Tar(finalPath, output_name);
-    removeFile(tempPath);
-    removeFile(finalPath);
+
+        return 0;
 
 }
