@@ -5,6 +5,12 @@
 
 //also need to check  if compressed or not in Tar and untar
 
+struct stat getStat(const char *file_path){
+    struct stat s;
+    stat(file_path, &s);
+    return s;
+}
+
 int unTar()
 {
     pid_t pid;
@@ -111,6 +117,13 @@ int copyFile(char *source, char *destination){
         return -1;
     }
 
+    struct stat s = getStat(source_desc);
+    int cherror = chmod(destination_desc, s.st_mode);
+    if (cherror != 0){
+        perror("chmod()");
+        return -1;
+    }
+
     char BUFFER[BUFFER_SIZE];
     int read_value;
 
@@ -128,7 +141,7 @@ int copyFile(char *source, char *destination){
 
 
 //this tests copyfile
-/**
+
 int main(int argc, char *argv[]){
     char *f1 = argv[1];
     char *f2 = argv[2];
@@ -140,4 +153,3 @@ int main(int argc, char *argv[]){
     printf(" ! didntcrashthatsgood ! \n");
     return 0;
 }
-**/
