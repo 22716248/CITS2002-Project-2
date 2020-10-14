@@ -127,6 +127,7 @@ void removeFinal(char *location){
 }
 
 //mainly from lecture 9
+//size is strange
 int copyFile(char *source, char *destination){
 
     int source_desc = open(source, O_RDONLY);
@@ -141,7 +142,7 @@ int copyFile(char *source, char *destination){
         close(source_desc);
         return -1;
     }
-    
+
     char BUFFER[BUFFER_SIZE];
     int read_value;
 
@@ -155,7 +156,7 @@ int copyFile(char *source, char *destination){
     }
     close(source_desc); close(destination_desc);
 
-        struct stat s = getStat(source);
+    struct stat s = getStat(source);
     int cherror = chmod(destination, s.st_mode);
     if (cherror != 0){
         perror("chmod()");
