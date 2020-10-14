@@ -4,17 +4,8 @@
 
 #include <headers.h>
 
-int isDir(const char *file_path)
-{
-    struct stat s;
-    stat(file_path, &s);
-    int test = S_ISDIR(s.st_mode);
-    return test;
-}
-
 void processFiles(char *basedir)
 {
-
     DIR *dir;
     struct dirent *ent;
 
@@ -30,14 +21,13 @@ void processFiles(char *basedir)
                 continue;
             }
 
-            //c/user/documents/check
             char entpath[MAXPATHLEN] = "";
             char endpath[] = entpath;
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
 
-            int dir_check = isDir(entpath);
+            int dir_check = getDir(entpath);
 
             if (dir_check) //folder
             {   
@@ -45,6 +35,8 @@ void processFiles(char *basedir)
             }
             else //file itself
             {
+
+                
                 printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENDPATH: %s\n", ent->d_name, basedir, endpath);
             }
 

@@ -13,10 +13,10 @@ int main(int argc, char *argv[]){
     char tempPath[] = makeTempFile();
     char finalPath[] = makeTempFile();
     size_t numberOfTars = sizeof(argv)/sizeof(argv[0]);
-    char output_name[] = argv[numberOfTars];
+    char output_name[] = argv[numberOfTars-1];
 
     int currentTar = 0;
-    while(currentTar != numberOfTars - 1){
+    while(currentTar != numberOfTars - 2){
         unTar(argv[currentTar], tempPath); //untar into temppath
         processFiles(tempPath, finalPath);
         currentTar++;

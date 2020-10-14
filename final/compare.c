@@ -7,12 +7,21 @@ int getSize(const char *file_path)
     int size = s.st_size;
     return size;
 }
+
 int getTime(const char *file_path)
 {
     struct stat s;
     stat(file_path, &s);
     int time = s.st_mtime;
     return time;
+}
+
+int getDir(const char *file_path)
+{
+    struct stat s;
+    stat(file_path, &s);
+    int test = S_ISDIR(s.st_mode);
+    return test;
 }
 
 /**
