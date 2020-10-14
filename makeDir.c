@@ -13,28 +13,55 @@
 #include <sys/sysmacros.h>
 #include <sys/param.h>
 
-int main()
-{
+char * makeTemporary(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
     char *dir_name = mkdtemp(template);
 
     if(dir_name == NULL)
     {
             perror("mkdtemp failed: ");
-            return 0;
     }
 
-    /* Use it here */
-    printf("\n%s\n", dir_name);
+    return dir_name;
+}
 
-    /* Don't forget to delete the folder afterwards. */
-    if(rmdir(dir_name) == -1)
+
+void removeTemporary(char *location){
+    if(rmdir(location) == -1)
     {
-            perror("rmdir failed: ");
-            return 0;
+        perror("rmdir failed: ");
+    }
+}
+
+char * makeFinal(void){
+    char template[] = "/tmp/tmpdir.XXXXXX";
+    char *dir_name = mkdtemp(template);
+
+    if(dir_name == NULL)
+    {
+            perror("mkdtemp failed: ");
     }
 
+    return dir_name;
+}
+
+
+void removeFinal(char *location){
+    if(rmdir(location) == -1)
+    {
+        perror("rmdir failed: ");
+    }
+}
+
+int main(void)
+{
+    char temporary[19];
+    memcpy(temporary, makeTemporary(), 19);
+    removeTemporary(temporary);
+
+    char final[19];
+    memcpy(final, makeFinal(), 19);
+    removeFinal(final);
 
     return 0;
-
 }

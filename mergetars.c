@@ -43,7 +43,6 @@ void walkDir(char *basedir)
 
             //c/user/documents/check
             char entpath[MAXPATHLEN] = "";
-            char endpath[] = entpath;
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
@@ -56,9 +55,8 @@ void walkDir(char *basedir)
             }
             else //file itself
             {
-                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENDPATH: %s\n", ent->d_name, basedir, endpath);
+                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tFULLPATH: %s\n", ent->d_name, basedir, entpath);
             }
-
 
         }
         
@@ -77,26 +75,8 @@ int main(int argc, char *argv[])
 {
     printf("\n====START====");
 
-    char basedir[] = "/mnt/e/OneDrive - The University of Western Australia/[uni] Study/[2020] Semester 2/CITS2002/Projects/beta/";
+    char basedir[] = "/mnt/e/OneDrive - The University of Western Australia/[uni] Study/[2020] Semester 2/CITS2002/Projects/beta";
     walkDir(basedir);
 
     printf("\n====DONE====\n");
 }
-
-//main
-
-//while over argv[] ->> ;
-//temppath = mktemp();
-//makeFinal(output_tarfile (argv[-1]) );
-    //mkdir();
-//untar(tarX);
-//walkDir(temppath);
-    // compareTimes();
-        //compareSize();
-        //readWrite();
-//tar(temppath);
-//rm temppath;
-//free memory
-//return Final;
-
-//put into github, orginise into files, make makefile
