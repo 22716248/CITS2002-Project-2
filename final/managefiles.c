@@ -126,37 +126,32 @@ void removeFinal(char *location){
     }
 }
 
-//mainly from lecture 9
-int copyFile(char *source, char *destination){
+int copyFilef(char source[], char destination[], char *sourcemod, char *destinationmod){
+    int f;
+    FILE *stream_source;
+    FILE *stream_distination;
 
-    int source_desc = open(source, O_RDONLY);
-    if (source_desc == -1){
+    stream_source = fopen(source, "r");
+    if (stream_source == NULL){
         printf("sourcefailed\n");
         return -1;
     }
-
-    int destination_desc = open(destination, O_WRONLY);
-    if (destination_desc == -1){
+    
+    stream_distination = fopen(destination, "w");
+    if (stream_distination == NULL){
         printf("destfailed\n");
-        close(source_desc);
-        return -1;
+        fclose(stream_source);
+        return -2;
+    }
+
+    while ((f = fgetc(stream_source)) != EOF){
+        fputc (f, stream_distination);
     }
     
-    char BUFFER[BUFFER_SIZE];
-    int read_value;
+    fclose (stream_source); fclose (stream_distination);
 
-    while ((read_value = read(source_desc, BUFFER, sizeof BUFFER)) > 0)
-    {
-        if(write(destination_desc, BUFFER, read_value) != read_value){
-            printf("copyFile failed \n");
-            close(source_desc); close(destination_desc);
-            return -1;
-        }
-    }
-    close(source_desc); close(destination_desc);
-
-        struct stat s = getStat(source);
-    int cherror = chmod(destination, s.st_mode);
+    struct stat s = getStat(sourcemod);
+    int cherror = chmod(destinationmod, s.st_mode);
     if (cherror != 0){
         perror("chmod()");
         return -1;
@@ -165,7 +160,7 @@ int copyFile(char *source, char *destination){
     struct utimbuf new_s_time;
     new_s_time.modtime = s.st_mtime;
     new_s_time.actime = s.st_atime;
-    int cherror2 = utime(destination, &new_s_time);
+    int cherror2 = utime(destinationmod, &new_s_time);
     if (cherror2 != 0){
         perror("utime()");
         return -1;
@@ -174,6 +169,54 @@ int copyFile(char *source, char *destination){
     return 0;
 }
 
+//mainly from lecture 9
+// int copyFile(char *source, char *destination){
+
+//     int source_desc = open(source, O_RDONLY);
+//     if (source_desc == -1){
+//         printf("sourcefailed\n");
+//         return -1;
+//     }
+
+//     int destination_desc = open(destination, O_WRONLY);
+//     if (destination_desc == -1){
+//         printf("destfailed\n");
+//         close(source_desc);
+//         return -1;
+//     }
+    
+//     char BUFFER[BUFFER_SIZE];
+//     int read_value;
+
+//     while ((read_value = read(source_desc, BUFFER, sizeof BUFFER)) > 0)
+//     {
+//         if(write(destination_desc, BUFFER, read_value) != read_value){
+//             printf("copyFile failed \n");
+//             close(source_desc); close(destination_desc);
+//             return -1;
+//         }
+//     }
+//     close(source_desc); close(destination_desc);
+
+//     struct stat s = getStat(source);
+//     int cherror = chmod(destination, s.st_mode);
+//     if (cherror != 0){
+//         perror("chmod()");
+//         return -1;
+//     }
+
+//     struct utimbuf new_s_time;
+//     new_s_time.modtime = s.st_mtime;
+//     new_s_time.actime = s.st_atime;
+//     int cherror2 = utime(destination, &new_s_time);
+//     if (cherror2 != 0){
+//         perror("utime()");
+//         return -1;
+//     }
+
+//     return 0;
+// }
+
 
 //this tests copyfile
 
@@ -181,7 +224,7 @@ int main(int argc, char *argv[]){
     char *f1 = argv[1];
     char *f2 = argv[2];
     printf("running...");
-    if (copyFile(f1,f2) == -1){
+    if (copyFilef(f1,f2,f1,f2) == -1){
         printf("failed...\n");
         return -1;
     }
