@@ -32,3 +32,28 @@ int unTar()
     }
     return 0;
 }
+
+int Tar()
+{
+    pid_t pid;
+    int waiting;
+    char *tarcommand[] = {"/bin/tar", "-xfp", tarfile, "-C", checkDir, NULL};
+
+    switch (pid = fork())
+    {
+        case -1:
+            perror("forking error");
+            exit(1);
+        case 0:
+            printf("THIS IS THE CHILD\n");
+            execvp(tarcommand[0], tarcommand);
+            exit(waiting);
+            break;
+        default:
+            printf("THIS IS THE PARENT\n");
+            wait(&waiting);
+            break;
+
+    }
+    return 0;
+}
