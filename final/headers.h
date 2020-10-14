@@ -8,5 +8,4 @@
 #include <errno.h>
 #include <sys/sysmacros.h>
 #include <sys/param.h>
-#include <sys/types.h>
 #include <sys/wait.h>

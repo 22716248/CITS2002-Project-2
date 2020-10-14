@@ -2,17 +2,7 @@
 //make a temporary directory
 //https://stackoverflow.com/questions/18792489/how-to-create-a-temporary-directory-in-c
 
-#include <unistd.h>
-#include <dirent.h>
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/sysmacros.h>
-#include <sys/param.h>
+#include <headers.h>
 
 int isDir(const char *file_path)
 {
