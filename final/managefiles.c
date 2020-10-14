@@ -141,20 +141,7 @@ int copyFile(char *source, char *destination){
         close(source_desc);
         return -1;
     }
-
-    struct stat s = getStat(source);
-    int cherror = chmod(destination, s.st_mode);
-    if (cherror != 0){
-        perror("chmod()");
-        return -1;
-    }
-    int cherror2 = utime(destination, s.st_mtime);
-    if (cherror2 != 0){
-        perror("utime()");
-        return -1;
-    }
     
-
     char BUFFER[BUFFER_SIZE];
     int read_value;
 
@@ -167,6 +154,23 @@ int copyFile(char *source, char *destination){
         }
     }
     close(source_desc); close(destination_desc);
+
+        struct stat s = getStat(source);
+    int cherror = chmod(destination, s.st_mode);
+    if (cherror != 0){
+        perror("chmod()");
+        return -1;
+    }
+
+    struct utimbuf new_s_time;
+    new_s_time.modtime = s.st_mtime;
+    new_s_time.actime = s.st_atime;
+    int cherror2 = utime(destination, &new_s_time);
+    if (cherror2 != 0){
+        perror("utime()");
+        return -1;
+    }
+
     return 0;
 }
 
