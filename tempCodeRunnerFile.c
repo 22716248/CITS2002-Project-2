@@ -33,6 +33,7 @@ void walkDir(char *basedir)
 
     if (dir != NULL)
     {
+        printf("\n\tWalking \"%s\n", basedir);
 
         while ((ent = readdir(dir)) != NULL)
         {
@@ -40,23 +41,34 @@ void walkDir(char *basedir)
             if (strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, ".." ) == 0){
                 continue;
             }
+            
+
+            //this is busted
 
             //c/user/documents/check
             char entpath[MAXPATHLEN] = "";
-            char endpath[] = entpath;
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
+            ///one
+            ///two
+            ///three
 
             int dir_check = isDir(entpath);
 
             if (dir_check) //folder
-            {   
+            {
+                printf("\n\tDIR: %s\n", ent->d_name);
+                
                 walkDir(entpath);
             }
             else //file itself
             {
-                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENDPATH: %s\n", ent->d_name, basedir, endpath);
+                printf("\n\tFILE: %s\n", ent->d_name);
+                char currentfilepath[] = strcat(entpath , ent->d_name);
+                //oldfile = getOldfile(currentfilepath);
+                //-1, 0, 1
+                //compareTime(currentfilepath, oldfilepath);
             }
 
 
@@ -77,7 +89,7 @@ int main(int argc, char *argv[])
 {
     printf("\n====START====");
 
-    char basedir[] = "/mnt/e/OneDrive - The University of Western Australia/[uni] Study/[2020] Semester 2/CITS2002/Projects/beta/";
+    char basedir[] = ".";
     walkDir(basedir);
 
     printf("\n====DONE====\n");
