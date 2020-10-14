@@ -26,15 +26,15 @@ Successful completion of the project will develop your understanding of advanced
 + globals.c -> N/A
 ! compare.c -> globals.c, tars.c
 # tars.c -> globals.c
-@@ mergefile.c -> processfile.c, globals.c, mergefile.c, tars.c @@
+@@ mergetars.c -> processfile.c, globals.c, compare.c, managefiles.c @@
 ```
 ***makefile*** **to link above**
 
 ## Functions
 ```diff
-- processfile.c -> walkDir, readWrite, removeFile, makeFile, makeTempFile
+- processfile.c -> walkDir, readWrite, , makeTempFile
 + globals.c -> GLOBALS
 ! compare.c -> compareTimes, compareSize
-# tars.c -> Tar (tar and untar)
-@@ mergefile.c -> Free + ABOVE @@
+# managefiles.c -> Tar (tar and untar) removeFile, makeFile
+@@ mergetars.c -> Free + ABOVE @@
 ```
