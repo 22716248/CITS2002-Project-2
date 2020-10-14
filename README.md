@@ -26,7 +26,7 @@ Successful completion of the project will develop your understanding of advanced
 + globals.c -> N/A
 ! compare.c -> globals.c, tars.c
 # tars.c -> globals.c
-@@ mergefile.c -> processfile.c, globals.c, mergefile.c, tars.c @@
+@@ mergetars.c -> processfile.c, globals.c, compare.c, tars.c @@
 ```
 ***makefile*** **to link above**
 
@@ -36,5 +36,5 @@ Successful completion of the project will develop your understanding of advanced
 + globals.c -> GLOBALS
 ! compare.c -> compareTimes, compareSize
 # tars.c -> Tar (tar and untar)
-@@ mergefile.c -> Free + ABOVE @@
+@@ mergetars.c -> Free + ABOVE @@
 ```
