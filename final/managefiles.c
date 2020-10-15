@@ -9,6 +9,8 @@ struct stat getStat(const char *file_path){
 
 int unTar(char tarfile[], char *checkDir)
 {
+    printf("\n\n YOUR ADDRESS FOR TEMPORARY FILES IN UNTAR: %s\n", checkDir);
+    printf("\n\n YOUR TARFILE FOR TEMPORARY FILES IN UNTAR: %s\n\n", tarfile);
     pid_t pid;
     int waiting;
     char *tarcommand[] = {"tar", "-xfp", tarfile, "-C", checkDir, NULL};
@@ -22,15 +24,17 @@ int unTar(char tarfile[], char *checkDir)
     char *fileTgz = strstr(fileType, tgzOp);
     char *fileGz = strstr(fileType, gzOp);
 
+    printf("\n%s\n", fileTar);
+
     switch (pid = fork())
     {
         case -1:
-            perror("forking error");
+            perror("forking error\n");
             exit(1);
         case 0:
-            printf("THIS IS THE CHILD\n");
+            printf("\tCHILD PROCESS: unTar\n");
 
-            if(fileTar){
+            if(fileTar == ".tar"){
                 execvp(tarcommand[0], tarcommand);
                 exit(waiting);
                 break;
@@ -46,12 +50,12 @@ int unTar(char tarfile[], char *checkDir)
                 break;   
             }
             else{
-                perror("not a valid file type");
+                perror("\tunTar: Not a valid file type\n\n");
                 exit(1);
                 break;
             }
         default:
-            printf("THIS IS THE PARENT\n");
+            printf("\tPARENT PROCESS: unTar\n");
             wait(&waiting);
             break;
 
@@ -63,20 +67,20 @@ int Tar(char tarfile[], char *checkDir)
 {   
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"/bin/tar", "-cvf", tarfile, checkDir, NULL};
+    char *tarcommand[] = {"/bin/tar", "-cfp", tarfile, checkDir, NULL};
 
     switch (pid = fork())
     {
         case -1:
-            perror("forking error");
+            perror("forking error\n");
             exit(1);
         case 0:
-            printf("THIS IS THE CHILD\n");
+            printf("\tCHILD PROCESS: Tar\n");
             execvp(tarcommand[0], tarcommand);
             exit(waiting);
             break;
         default:
-            printf("THIS IS THE PARENT\n");
+            printf("\tPARENT PROCESS: Tar\n");
             wait(&waiting);
             break;
 
