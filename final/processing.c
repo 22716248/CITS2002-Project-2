@@ -5,7 +5,6 @@ void processFiles(char *basedir, char *finalpath)
 {
     DIR *dir;
     struct dirent *ent;
-
     dir = opendir(basedir);
 
     if (dir != NULL)
@@ -19,32 +18,52 @@ void processFiles(char *basedir, char *finalpath)
             }
 
             char entpath[MAXPATHLEN] = "";
+            char finpath[MAXPATHLEN] = "";
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
-
-            
-            char currentpath[MAXPATHLEN] = "";
-            strcat(currentpath, "/");
-            strcat(currentpath, ent->d_name);
+            strcat(finpath, finalpath);
+            strcat(finpath, "/");
+            strcat(finpath, ent->d_name);
             
 
             int dir_check = getDir(entpath);
 
             if (dir_check) //folder
             {   
-                processFiles(entpath, finalpath);
+                processFiles(entpath, finpath);
             }
             else //file itself
             {
-                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n \tENTCOMP: %s\n", ent->d_name, basedir, entpath, finalpath, currentpath);
+                //if file doesn't exist in final folder, copy it
+                if( access(finpath, F_OK ) != -1 ) {
+                    // file exists
+                    //check time modified and size...
+                    int time_comparison = compareTimes(entpath, finpath);
+                    int size_comparison = compareSize(entpath, finpath);
+                    if(time_comparison == -1){ //final is older
+                        
+                    } else if (time_comparison == 0){ //both same
+                    //if final is smaller AND are the same change it. this should be the most recent file
+                        if(size_comparison != -1){ 
+                            copyFile(entpath, finpath);
+                        }
+                    } //skip if final is newer
+                } else {
+                    // file doesn't exist
+                    // make file seketon and copy it over
+                    FILE *newfinal;
+                    newfinal = fopen (finpath, "w");
+                    fclose (newfinal);
+                    copyFile(entpath, finpath);
+
+                }
+
+
+                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n", ent->d_name, basedir, entpath, finpath);
             }
-
-
         }
-        
         closedir(dir);
-
     }
     else
     {
@@ -52,7 +71,6 @@ void processFiles(char *basedir, char *finalpath)
         perror("opendir()");
     }
 }
-
 int main (){
-    processFiles("./test", "/tmp/FILE.Ad2AD1/");
+    processFiles("./test", "./test2");
 }
