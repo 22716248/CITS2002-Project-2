@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
+            "args": ["../file1.tar ../file2.tar final"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

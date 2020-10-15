@@ -11,8 +11,8 @@ int unTar(char tarfile[], char *checkDir)
 {
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"/bin/tar", "-xfp", tarfile, "-C", checkDir, NULL};
-    char *tgzcommand[] = {"/bin/tar", "-xzfp", tarfile, "-C", checkDir, NULL};
+    char *tarcommand[] = {"tar", "-xfp", tarfile, "-C", checkDir, NULL};
+    char *tgzcommand[] = {"tar", "-xzfp", tarfile, "-C", checkDir, NULL};
     
     char tar[] = ".tar"; char tgz[] = ".tgz"; char gz[] = ".gz";
     char *fileType, *tarOp, *tgzOp, *gzOp;
@@ -60,10 +60,10 @@ int unTar(char tarfile[], char *checkDir)
 }
 
 int Tar(char tarfile[], char *checkDir)
-{
+{   
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"/bin/tar", "-cfp", tarfile, "-C", checkDir, NULL};
+    char *tarcommand[] = {"/bin/tar", "-cvf", tarfile, checkDir, NULL};
 
     switch (pid = fork())
     {
