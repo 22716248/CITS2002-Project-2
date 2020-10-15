@@ -9,7 +9,7 @@ struct stat getStat(const char *file_path){
     return s;
 }
 
-void struct stat getStat(const char *file_path)
+int unTar(char tarfile[], char *checkDir)
 {
     pid_t pid;
     int waiting;
