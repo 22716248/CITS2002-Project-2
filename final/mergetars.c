@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
     char finalPath[19];
     memcpy(finalPath, makeTempFile(), 19);
     size_t numberOfTars = argc - 2;
-    char output_name[] = argv[argc];
+    char *output_name = argv[argc];
 
     int currentTar = 0;
     while(currentTar != numberOfTars - 1){
