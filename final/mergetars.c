@@ -4,7 +4,6 @@
 
 #include "headers.h"
 //need to add headers later not source code.c
-#include "compare.c"
 #include "processing.c"
 #include "managefiles.c"
 
@@ -20,11 +19,11 @@ int main(int argc, char *argv[]){
         memcpy(tempPath, makeTempFile(), 19);
         unTar(argv[currentTar], tempPath); //untar into temppath
         processFiles(tempPath, finalPath);
-        removeTempFile(tempPath);
+        removeFile(tempPath);
         currentTar++;
     }
 
     Tar(finalPath, output_name);
-    removeFinal(finalPath);
+    removeFile(finalPath);
 
 }

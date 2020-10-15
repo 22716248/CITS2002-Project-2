@@ -104,13 +104,6 @@ void removeFile(char *location){
     }
 }
 
-void removeFinal(char *location){
-    if(rmdir(location) == -1)
-    {
-        perror("rmdir failed: ");
-    }
-}
-
 int copyFile(char source[], char destination[]){
     int f;
     FILE *stream_source;
