@@ -1,8 +1,5 @@
 #include "headers.h"
 
-#define tarfile "file.tar"
-#define checkDir "/temp/test"
-
 //also need to check  if compressed or not in Tar and untar
 
 struct stat getStat(const char *file_path){
@@ -11,11 +8,20 @@ struct stat getStat(const char *file_path){
     return s;
 }
 
-int unTar()
+void unTar(char tarfile[], char *checkDir)
 {
     pid_t pid;
     int waiting;
     char *tarcommand[] = {"/bin/tar", "-xfp", tarfile, "-C", checkDir, NULL};
+    char *tgzcommand[] = {"/bin/tar", "-xzfp", tarfile, "-C", checkDir, NULL};
+    
+    char tar[] = ".tar"; char tgz[] = ".tgz"; char gz[] = ".gz";
+    char *fileType, *tarOp, *tgzOp, *gzOp;
+    fileType = tarfile; tarOp = tar; tgzOp = tgz; gzOp = gz;
+
+    char *fileTar = strstr(fileType, tarOp);
+    char *fileTgz = strstr(fileType, tgzOp);
+    char *fileGz = strstr(fileType, gzOp);
 
     switch (pid = fork())
     {
@@ -24,44 +30,36 @@ int unTar()
             exit(1);
         case 0:
             printf("THIS IS THE CHILD\n");
-            execvp(tarcommand[0], tarcommand);
-            exit(waiting);
-            break;
+
+            if(fileTar){
+                execvp(tarcommand[0], tarcommand);
+                exit(waiting);
+                break;
+            }
+            else if(fileTgz){
+                execvp(tgzcommand[0], tgzcommand);
+                exit(waiting);
+                break;
+            }
+            else if(fileGz){
+                execvp(tgzcommand[0], tgzcommand);
+                exit(waiting);
+                break;   
+            }
+            else{
+                perror("not a valid file type");
+                exit(1);
+                break;
+            }
         default:
             printf("THIS IS THE PARENT\n");
             wait(&waiting);
             break;
 
     }
-    return 0;
 }
 
-int unTgz()
-{
-    pid_t pid;
-    int waiting;
-    char *tarcommand[] = {"/bin/tar", "-xzfp", tarfile, "-C", checkDir, NULL};
-
-    switch (pid = fork())
-    {
-        case -1:
-            perror("forking error");
-            exit(1);
-        case 0:
-            printf("THIS IS THE CHILD\n");
-            execvp(tarcommand[0], tarcommand);
-            exit(waiting);
-            break;
-        default:
-            printf("THIS IS THE PARENT\n");
-            wait(&waiting);
-            break;
-
-    }
-    return 0;
-}
-
-int Tar()
+int Tar(char tarfile[], char *checkDir)
 {
     pid_t pid;
     int waiting;
