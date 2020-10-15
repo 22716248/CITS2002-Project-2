@@ -84,7 +84,7 @@ int Tar(char tarfile[], char *checkDir)
     return 0;
 }
 
-char * makeTemporary(void){
+char * makeTempFile(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
     char *dir_name = mkdtemp(template);
 
@@ -97,25 +97,12 @@ char * makeTemporary(void){
 }
 
 
-void removeTemporary(char *location){
+void removeFile(char *location){
     if(rmdir(location) == -1)
     {
         perror("rmdir failed: ");
     }
 }
-
-char * makeFinal(void){
-    char template[] = "/tmp/tmpdir.XXXXXX";
-    char *dir_name = mkdtemp(template);
-
-    if(dir_name == NULL)
-    {
-            perror("mkdtemp failed: ");
-    }
-
-    return dir_name;
-}
-
 
 void removeFinal(char *location){
     if(rmdir(location) == -1)
@@ -124,11 +111,11 @@ void removeFinal(char *location){
     }
 }
 
-int copyFilef(char source[], char destination[], char *sourcemod, char *destinationmod){
+int copyFile(char source[], char destination[]){
     int f;
     FILE *stream_source;
     FILE *stream_distination;
-
+    
     stream_source = fopen(source, "r");
     if (stream_source == NULL){
         printf("sourcefailed\n");
@@ -148,8 +135,8 @@ int copyFilef(char source[], char destination[], char *sourcemod, char *destinat
 
     fclose (stream_source); fclose (stream_distination);
 
-    struct stat s = getStat(sourcemod);
-    int cherror = chmod(destinationmod, s.st_mode);
+    struct stat s = getStat(source);
+    int cherror = chmod(destination, s.st_mode);
     if (cherror != 0){
         perror("chmod()");
         return -1;
@@ -158,7 +145,7 @@ int copyFilef(char source[], char destination[], char *sourcemod, char *destinat
     struct utimbuf new_s_time;
     new_s_time.modtime = s.st_mtime;
     new_s_time.actime = s.st_atime;
-    int cherror2 = utime(destinationmod, &new_s_time);
+    int cherror2 = utime(destination, &new_s_time);
     if (cherror2 != 0){
         perror("utime()");
         return -1;
