@@ -1,3 +1,5 @@
+//#define _POSIX_C_SOURCE 200809L
+
 #include <dirent.h>
 #include <stdio.h> 
 #include <stdlib.h>
@@ -12,5 +14,3 @@
 #include <sys/stat.h>
 #include <utime.h>
 #include <sys/time.h>
-
-#include "globals.c"

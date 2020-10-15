@@ -1,7 +1,7 @@
  PROJECT =  mergetars
 # changed from .h to .c FOR NOW
 HEADERS =  $(PROJECT).c
-OBJ     =  processing.o globals.o managefiles.o compare.o
+OBJ     =  processing.o managefiles.o compare.o
 
 
 C99     =  cc -std=c99

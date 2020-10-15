@@ -1,4 +1,5 @@
 #include "headers.h"
+#include "managefiles.h"
 
 //also need to check  if compressed or not in Tar and untar
 
@@ -8,7 +9,7 @@ struct stat getStat(const char *file_path){
     return s;
 }
 
-void unTar(char tarfile[], char *checkDir)
+void struct stat getStat(const char *file_path)
 {
     pid_t pid;
     int waiting;
@@ -86,6 +87,7 @@ int Tar(char tarfile[], char *checkDir)
 
 char * makeTempFile(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
+    char *mkdtemp(char *template);
     char *dir_name = mkdtemp(template);
 
     if(dir_name == NULL)

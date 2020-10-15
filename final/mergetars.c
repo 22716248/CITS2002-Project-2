@@ -4,12 +4,12 @@
 
 #include "headers.h"
 //need to add headers later not source code.c
-#include "processing.c"
-#include "managefiles.c"
+#include "processing.h"
+#include "managefiles.h"
 
 int main(int argc, char *argv[]){
     char finalPath[19];
-    memcpy(finalPath, makeFinal(), 19);
+    memcpy(finalPath, makeTempFile(), 19);
     size_t numberOfTars = argc - 2;
     char output_name[] = argv[argc];
 
