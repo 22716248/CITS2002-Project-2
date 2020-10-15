@@ -1,5 +1,4 @@
 #include "headers.h"
-#include "managefiles.h"
 
 struct stat getStat(const char *file_path){
     struct stat s;
