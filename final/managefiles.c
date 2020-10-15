@@ -65,9 +65,11 @@ int unTar(char tarfile[], char *checkDir)
 
 int Tar(char tarname[], char *tarfile)
 {   
+    char finalLocation[200] = "./";
+    strcat(finalLocation, tarname);
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"tar", "cfp", tarname, tarfile, NULL};
+    char *tarcommand[] = {"tar", "cfp", finalLocation, tarfile, NULL};
 
     switch (pid = fork())
     {
