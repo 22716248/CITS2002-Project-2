@@ -1,4 +1,7 @@
 #include "headers.h"
+#include "compare.h"
+#include "managefiles.h"
+#include "processing.h"
 
 void processFiles(char *basedir, char *finalpath)
 {
@@ -74,9 +77,4 @@ void processFiles(char *basedir, char *finalpath)
         fprintf(stderr, "\nFailed to access dir \"%s\"\n", basedir);
         perror("opendir()");
     }
-}
-
-
-int main (){
-    processFiles("./test", "./test2");
 }

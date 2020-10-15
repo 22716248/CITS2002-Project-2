@@ -1,4 +1,5 @@
 #include "headers.h"
+#include "compare.h"
 
 int getSize(const char *file_path)
 {

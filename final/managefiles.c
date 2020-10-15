@@ -1,4 +1,5 @@
 #include "headers.h"
+#include "managefiles.h"
 
 struct stat getStat(const char *file_path){
     struct stat s;
@@ -6,7 +7,7 @@ struct stat getStat(const char *file_path){
     return s;
 }
 
-void unTar(char tarfile[], char *checkDir)
+int unTar(char tarfile[], char *checkDir)
 {
     pid_t pid;
     int waiting;
