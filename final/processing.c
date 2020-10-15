@@ -1,6 +1,7 @@
 #include "headers.h"
+#include "compare.c"
 
-void processFiles(char *basedir)
+void processFiles(char *basedir, char *finalpath)
 {
     DIR *dir;
     struct dirent *ent;
@@ -18,22 +19,25 @@ void processFiles(char *basedir)
             }
 
             char entpath[MAXPATHLEN] = "";
-            char endpath[] = entpath;
             strcat(entpath, basedir);
             strcat(entpath, "/");
             strcat(entpath, ent->d_name);
+
+            
+            char currentpath[MAXPATHLEN] = "";
+            strcat(currentpath, "/");
+            strcat(currentpath, ent->d_name);
+            
 
             int dir_check = getDir(entpath);
 
             if (dir_check) //folder
             {   
-                walkDir(entpath);
+                processFiles(entpath, finalpath);
             }
             else //file itself
             {
-
-                
-                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENDPATH: %s\n", ent->d_name, basedir, endpath);
+                printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n \tENTCOMP: %s\n", ent->d_name, basedir, entpath, finalpath, currentpath);
             }
 
 
@@ -49,3 +53,6 @@ void processFiles(char *basedir)
     }
 }
 
+int main (){
+    processFiles("./test", "/tmp/FILE.Ad2AD1/");
+}
