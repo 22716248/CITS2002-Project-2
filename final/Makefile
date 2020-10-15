@@ -1,4 +1,4 @@
-PROJECT =  mergetars
+ PROJECT =  mergetars
 # changed from .h to .c FOR NOW
 HEADERS =  $(PROJECT).c
 OBJ     =  processing.o globals.o managefiles.o compare.o
