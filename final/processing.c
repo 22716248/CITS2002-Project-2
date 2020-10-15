@@ -78,8 +78,7 @@ void processFiles(char *basedir, char *finalpath)
     }
 }
 
-/** TESTING CODE
+
 int main (){
     processFiles("./test", "./test2");
 }
-**/
