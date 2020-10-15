@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-#include <fcntl.h> //cp
+#include <fcntl.h>
 #include <sys/sysmacros.h>
 #include <sys/param.h>
 #include <sys/wait.h>
@@ -19,7 +19,7 @@
 //  Student number(s):   22716248, 22502051
 
 extern struct stat getStat(const char *file_path);
-extern void unTar(char tarfile[], char *checkDir);
+extern int unTar(char tarfile[], char *checkDir);
 extern int Tar(char tarfile[], char *checkDir);
 extern char * makeTempFile(void);
 extern void removeFile(char *location);
