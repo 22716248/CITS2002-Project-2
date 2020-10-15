@@ -3,9 +3,6 @@
 //  Student number(s):   22716248, 22502051
 
 #include "headers.h"
-//need to add headers later not source code.c
-#include "processing.c"
-#include "managefiles.c"
 
 int main(int argc, char *argv[]){
     char finalPath[19];
