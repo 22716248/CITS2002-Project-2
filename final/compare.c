@@ -1,6 +1,9 @@
 #include "headers.h"
 #include "compare.h"
 
+/**
+ * This function get the size of a file, given its path
+ **/
 int getSize(const char *file_path)
 {
     struct stat s;
@@ -9,6 +12,9 @@ int getSize(const char *file_path)
     return size;
 }
 
+/**
+ * This function get the last modification time of a file, given its path
+ **/
 int getTime(const char *file_path)
 {
     struct stat s;
@@ -17,12 +23,15 @@ int getTime(const char *file_path)
     return time;
 }
 
+/**
+ * This function if the path points to a directory
+ **/
 int getDir(const char *file_path)
 {
     struct stat s;
     stat(file_path, &s);
-    int test = S_ISDIR(s.st_mode);
-    return test;
+    int isdir = S_ISDIR(s.st_mode);
+    return isdir;
 }
 
 /**
