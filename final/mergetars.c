@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
     while(currentTar != argc - 2){
         char tempPath[19];
         memcpy(tempPath, makeTempFile(), 19);
-        printf("\n\n YOUR ADDRESS FOR TEMPORARY FILES: %s\n\n", tempPath);
+        printf("\n\nYOUR ADDRESS FOR TEMPORARY FILES: %s\n\n", tempPath);
         unTar(argv[currentTar], tempPath); //untar into temppath
         processFiles(tempPath, finalPath);
         removeFile(tempPath);

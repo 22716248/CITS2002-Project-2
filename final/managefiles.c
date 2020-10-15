@@ -9,12 +9,12 @@ struct stat getStat(const char *file_path){
 
 int unTar(char tarfile[], char *checkDir)
 {
-    printf("\n\n YOUR ADDRESS FOR TEMPORARY FILES IN UNTAR: %s\n", checkDir);
-    printf("\n\n YOUR TARFILE FOR TEMPORARY FILES IN UNTAR: %s\n\n", tarfile);
+    printf("\n\nYOUR ADDRESS FOR TEMPORARY FILES IN UNTAR: %s\n", checkDir);
+    printf("YOUR TARFILE FOR TEMPORARY FILES IN UNTAR: %s\n\n", tarfile);
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"tar", "-xfp", tarfile, "-C", checkDir, NULL};
-    char *tgzcommand[] = {"tar", "-xzfp", tarfile, "-C", checkDir, NULL};
+    char *tarcommand[] = {"tar", "xfp", tarfile, "-C", checkDir, NULL};
+    char *tgzcommand[] = {"tar", "xzfp", tarfile, "-C", checkDir, NULL};
     
     char tar[] = ".tar"; char tgz[] = ".tgz"; char gz[] = ".gz";
     char *fileType, *tarOp, *tgzOp, *gzOp;
@@ -24,7 +24,6 @@ int unTar(char tarfile[], char *checkDir)
     char *fileTgz = strstr(fileType, tgzOp);
     char *fileGz = strstr(fileType, gzOp);
 
-    printf("\n%s\n", fileTar);
 
     switch (pid = fork())
     {
@@ -34,7 +33,8 @@ int unTar(char tarfile[], char *checkDir)
         case 0:
             printf("\tCHILD PROCESS: unTar\n");
 
-            if(fileTar == ".tar"){
+            if(fileTar){
+                printf("\tUNTAR SUCCESSFUL\n");
                 execvp(tarcommand[0], tarcommand);
                 exit(waiting);
                 break;
@@ -103,9 +103,25 @@ char * makeTempFile(void){
 
 
 void removeFile(char *location){
-    if(rmdir(location) == -1)
+    pid_t pid;
+    int waiting;
+    char *rmcommand[] = {"rm", "-r", location, NULL};
+
+    switch (pid = fork())
     {
-        perror("rmdir failed: ");
+        case -1:
+            perror("forking error\n");
+            exit(1);
+        case 0:
+            printf("\tCHILD PROCESS: rmDir\n");
+            execvp(rmcommand[0], rmcommand);
+            exit(waiting);
+            break;
+        default:
+            printf("\tPARENT PROCESS: rmDir\n");
+            wait(&waiting);
+            break;
+
     }
 }
 
