@@ -56,6 +56,7 @@ int unTar(char tarfile[], char *checkDir)
             break;
 
     }
+    return 0;
 }
 
 int Tar(char tarfile[], char *checkDir)
