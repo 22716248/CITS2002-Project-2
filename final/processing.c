@@ -1,8 +1,4 @@
-
-//make a temporary directory
-//https://stackoverflow.com/questions/18792489/how-to-create-a-temporary-directory-in-c
-
-#include <headers.h>
+#include "headers.h"
 
 void processFiles(char *basedir)
 {

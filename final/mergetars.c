@@ -2,7 +2,7 @@
 //  Name(s):             Jakub Wysocki, Brandon Petkovic
 //  Student number(s):   22716248, 22502051
 
-#include <headers.h>
+#include "headers.h"
 
 int main(int argc, char *argv[]){
     char tempPath[] = makeTempFile();
