@@ -13,10 +13,10 @@ int main(int argc, char *argv[]){
     int currentTar = 0;
     while(currentTar != numberOfTars - 2){
         char tempPath[19];
-        memcpy(tempPath, makeTemporary(), 19);
+        memcpy(tempPath, makeTempFile(), 19);
         unTar(argv[currentTar], tempPath); //untar into temppath
         processFiles(tempPath, finalPath);
-        removeTemporary(tempPath);
+        removeTempFile(tempPath);
         currentTar++;
     }
 
