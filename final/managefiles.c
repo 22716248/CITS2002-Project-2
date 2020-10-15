@@ -86,7 +86,7 @@ int Tar()
     return 0;
 }
 
-char * makeTemporary(void){
+char * makeTempFile(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
     char *dir_name = mkdtemp(template);
 
@@ -99,25 +99,12 @@ char * makeTemporary(void){
 }
 
 
-void removeTemporary(char *location){
+void removeFile(char *location){
     if(rmdir(location) == -1)
     {
         perror("rmdir failed: ");
     }
 }
-
-char * makeFinal(void){
-    char template[] = "/tmp/tmpdir.XXXXXX";
-    char *dir_name = mkdtemp(template);
-
-    if(dir_name == NULL)
-    {
-            perror("mkdtemp failed: ");
-    }
-
-    return dir_name;
-}
-
 
 void removeFinal(char *location){
     if(rmdir(location) == -1)
@@ -126,10 +113,12 @@ void removeFinal(char *location){
     }
 }
 
-int copyFilef(char source[], char destination[], char *sourcemod, char *destinationmod){
+int copyFile(char source[], char destination[]){
     int f;
     FILE *stream_source;
     FILE *stream_distination;
+    char *sourcemod = source;
+    char *destinationmod = destination;
 
     stream_source = fopen(source, "r");
     if (stream_source == NULL){

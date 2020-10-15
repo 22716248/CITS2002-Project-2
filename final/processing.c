@@ -10,7 +10,6 @@ void processFiles(char *basedir, char *finalpath)
 
     if (dir != NULL)
     {
-
         while ((ent = readdir(dir)) != NULL)
         {
             //ignore . or ..
@@ -18,6 +17,7 @@ void processFiles(char *basedir, char *finalpath)
                 continue;
             }
 
+            //record current paths for current and final
             char entpath[MAXPATHLEN] = "";
             char finpath[MAXPATHLEN] = "";
             strcat(entpath, basedir);
@@ -27,31 +27,34 @@ void processFiles(char *basedir, char *finalpath)
             strcat(finpath, "/");
             strcat(finpath, ent->d_name);
             
-
+            //check if current path is a directory
             int dir_check = getDir(entpath);
 
-            if (dir_check) //folder
+            if (dir_check) //directory
             {   
+                //if no directory in final exists, make one
                 if(mkdir(finpath, 0777) && errno != EEXIST){
-                    printf("file exists");
+                    printf("error: file exists");
+                    perror("mkdir(): ");
                 }
-
+                //recursivly go through this directory
                 processFiles(entpath, finpath);
             }
             else //file itself
             {
                 //if file doesn't exist in final folder, copy it
+                //if it does, check parameters, and update accordingly
                 if( access(finpath, F_OK ) != -1 ) {
                     // file exists
                     //check time modified and size...
                     int time_comparison = compareTimes(entpath, finpath);
                     int size_comparison = compareSize(entpath, finpath);
                     if(time_comparison == -1){ //final is older
-                        copyFilef(entpath, finpath,entpath, finpath);
+                        copyFile(entpath, finpath);
                     } else if (time_comparison == 0){ //both same
                     //if final is smaller AND are the same change it. this should be the most recent file
                         if(size_comparison != -1){ 
-                            copyFilef(entpath, finpath,entpath, finpath);
+                            copyFile(entpath, finpath);
                         }
                     } //skip if final is newer
                 } else {
@@ -61,13 +64,8 @@ void processFiles(char *basedir, char *finalpath)
                         printf("open failed");
                     }
                     close (*finpath);
-                    copyFilef(entpath, finpath,entpath, finpath);
-                    
-                    
-
+                    copyFile(entpath, finpath);
                 }
-
-
                 printf("\n\tFILE: %s\n\tBASEDIR: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n", ent->d_name, basedir, entpath, finpath);
             }
         }
@@ -79,6 +77,9 @@ void processFiles(char *basedir, char *finalpath)
         perror("opendir()");
     }
 }
+
+/** TESTING CODE
 int main (){
     processFiles("./test", "./test2");
 }
+**/
