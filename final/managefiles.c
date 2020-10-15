@@ -147,17 +147,3 @@ int copyFile(char source[], char destination[]){
 
     return 0;
 }
-
-/**
-int main(int argc, char *argv[]){
-    char *f1 = argv[1];
-    char *f2 = argv[2];
-    printf("running...");
-    if (copyFilef(f1,f2,f1,f2) == -1){
-        printf("failed...\n");
-        return -1;
-    }
-    printf(" ! didntcrashthatsgood ! \n");
-    return 0;
-}
-**/
