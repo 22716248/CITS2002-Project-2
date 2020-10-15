@@ -12,17 +12,17 @@ int main(int argc, char *argv[]){
     char *output_name = argv[argc-1];
 
     int currentTar = 1;
-    while(currentTar != argc - 2){
+    while(currentTar != argc - 1){
+        printf("\n\n\t%s\n\n", argv[currentTar]);
         char tempPath[19];
         memcpy(tempPath, makeTempFile(), 19);
-        printf("\n\nYOUR ADDRESS FOR TEMPORARY FILES: %s\n\n", tempPath);
         unTar(argv[currentTar], tempPath); //untar into temppath
         processFiles(tempPath, finalPath);
         removeFile(tempPath);
         currentTar++;
     }
 
-    Tar(output_name, ".");
+    Tar(output_name, finalPath);
     removeFile(finalPath);
 
 }

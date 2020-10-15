@@ -63,11 +63,11 @@ int unTar(char tarfile[], char *checkDir)
     return 0;
 }
 
-int Tar(char tarfile[], char *checkDir)
+int Tar(char tarname[], char *tarfile)
 {   
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"/bin/tar", "-cfp", tarfile, checkDir, NULL};
+    char *tarcommand[] = {"tar", "cfp", tarname, tarfile, NULL};
 
     switch (pid = fork())
     {
@@ -118,7 +118,7 @@ void removeFile(char *location){
             exit(waiting);
             break;
         default:
-            printf("\tPARENT PROCESS: rmDir\n");
+            printf("\n\tPARENT PROCESS: rmDir\n");
             wait(&waiting);
             break;
 

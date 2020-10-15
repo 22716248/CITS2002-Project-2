@@ -3,7 +3,7 @@
 
 struct stat getStat(const char *file_path);
 struct stat getStat(const char *file_path);
-int Tar(char tarfile[], char *checkDir);
+int Tar(char tarname[], char *tarfile);
 int unTar(char tarfile[], char *checkDir);
 char * makeTempFile(void);
 void removeFile(char *location);
