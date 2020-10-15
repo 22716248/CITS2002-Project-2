@@ -1,4 +1,7 @@
 #include "headers.h"
+#include "compare.h"
+#include "managefiles.h"
+#include "processing.h"
 
 void processFiles(char *basedir, char *finalpath)
 {
