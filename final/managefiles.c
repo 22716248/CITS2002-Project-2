@@ -169,6 +169,7 @@ int copyFilef(char source[], char destination[], char *sourcemod, char *destinat
     return 0;
 }
 
+/**
 int main(int argc, char *argv[]){
     char *f1 = argv[1];
     char *f2 = argv[2];
@@ -180,3 +181,4 @@ int main(int argc, char *argv[]){
     printf(" ! didntcrashthatsgood ! \n");
     return 0;
 }
+**/

@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "compare.c"
+#include "managefiles.c"
 
 void processFiles(char *basedir, char *finalpath)
 {
@@ -31,6 +32,10 @@ void processFiles(char *basedir, char *finalpath)
 
             if (dir_check) //folder
             {   
+                if(mkdir(finpath, 0777) && errno != EEXIST){
+                    printf("file exists");
+                }
+
                 processFiles(entpath, finpath);
             }
             else //file itself
@@ -46,16 +51,19 @@ void processFiles(char *basedir, char *finalpath)
                     } else if (time_comparison == 0){ //both same
                     //if final is smaller AND are the same change it. this should be the most recent file
                         if(size_comparison != -1){ 
-                            copyFile(entpath, finpath);
+                            copyFilef(entpath, finpath,entpath, finpath);
                         }
                     } //skip if final is newer
                 } else {
                     // file doesn't exist
                     // make file seketon and copy it over
-                    FILE *newfinal;
-                    newfinal = fopen (finpath, "w");
-                    fclose (newfinal);
-                    copyFile(entpath, finpath);
+                    if(open (finpath, O_CREAT) == -1){
+                        printf("open failed");
+                    }
+                    close (*finpath);
+                    copyFilef(entpath, finpath,entpath, finpath);
+                    
+                    
 
                 }
 
