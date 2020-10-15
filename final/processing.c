@@ -47,7 +47,7 @@ void processFiles(char *basedir, char *finalpath)
                     int time_comparison = compareTimes(entpath, finpath);
                     int size_comparison = compareSize(entpath, finpath);
                     if(time_comparison == -1){ //final is older
-                        
+                        copyFilef(entpath, finpath,entpath, finpath);
                     } else if (time_comparison == 0){ //both same
                     //if final is smaller AND are the same change it. this should be the most recent file
                         if(size_comparison != -1){ 
