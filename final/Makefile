@@ -1,13 +1,11 @@
-
-# A Makefile to build our 'calcmarks' project
-
 PROJECT =  mergetars
-HEADERS =  $(PROJECT).h
-OBJ     =  tars.o globals.o processfile.o compare.o
+# changed from .h to .c FOR NOW
+HEADERS =  $(PROJECT).c
+OBJ     =  processing.o globals.o managefiles.o compare.o
 
 
 C99     =  cc -std=c99
-CFLAGS  =  -Wall -pedantic -Werror 
+CFLAGS  =  -Wall -pedantic -Werror
 
 
 $(PROJECT) : $(OBJ)
@@ -19,4 +17,3 @@ $(PROJECT) : $(OBJ)
 
 clean:
        rm -f $(PROJECT) $(OBJ)
-
