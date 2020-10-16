@@ -15,8 +15,8 @@
  * */
 int main(int argc, char *argv[]){
 
-    if (argc < 3){
-        printf("mergetars: You must provide at least 2 arguments.\n");
+    if (argc <= 3){
+        printf("You must provide at least 2 arguments.");
         exit(EXIT_FAILURE);
     }
 
@@ -28,22 +28,14 @@ int main(int argc, char *argv[]){
     while(currentTar != argc - 1){
         char tempPath[19];
         memcpy(tempPath, makeTempFile(), 19);
-        if (unTar(argv[currentTar], tempPath) == -1){
-            printf("mergetars: Merging tars unsuccessful.\n");
-            return -1;
-        }
+        unTar(argv[currentTar], tempPath);
         processFiles(tempPath, finalPath);
         removeFile(tempPath);
         currentTar++;
     }
 
-    if(Tar(output_name, finalPath) == -1){
-        printf("mergetars: Merging tars unsuccessful.\n");
-        return -1;
-    }
+    Tar(output_name, finalPath);
     removeFile(finalPath);
 
     printf("mergetars: Merging tars successful. \nmergetars: Final tar: [%s]\n", output_name);
-
-    return 0;
 }
