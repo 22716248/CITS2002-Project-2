@@ -55,7 +55,7 @@ int unTar(char tarfile[], char *endDir)
                 break;   
             }
             else{
-                perror("\tunTar() [managefiles.c]: Not a valid file type.\n\n");
+                perror("unTar() [managefiles.c] failed: Not a valid file type.\n");
                 exit(EXIT_FAILURE);
                 break;
             }

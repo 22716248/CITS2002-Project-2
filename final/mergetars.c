@@ -15,8 +15,8 @@
  * */
 int main(int argc, char *argv[]){
 
-    if (argc <= 3){
-        printf("You must provide at least 2 arguments.");
+    if (argc < 3){
+        printf("mergetars: You must provide at least 2 arguments.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -37,5 +37,5 @@ int main(int argc, char *argv[]){
     Tar(output_name, finalPath);
     removeFile(finalPath);
 
-    printf("mergetars: Merging tars successful. \nmergetars: Final tar: [%s]\n", output_name);
+    printf("mergetars: Merging tars complete. \nmergetars: Final tar: [%s]\n", output_name);
 }
