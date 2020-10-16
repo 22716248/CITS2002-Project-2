@@ -110,7 +110,7 @@ char * makeTempFile(void){
 
     if(dir_name == NULL)
     {
-            perror("mkdtemp failed: ");
+            perror("mkdtemp() [mergefiles.c] failed: ");
             exit(EXIT_FAILURE);
     }
 
@@ -130,15 +130,13 @@ void removeFile(char *location){
     switch (pid = fork())
     {
         case -1:
-            perror("forking error\n");
-            exit(1);
+            perror("fork() [managefiles.c] failed: ");
+            exit(EXIT_FAILURE);
         case 0:
-            printf("\tCHILD PROCESS: rmDir\n");
             execvp(rmcommand[0], rmcommand);
             exit(waiting);
             break;
         default:
-            printf("\n\tPARENT PROCESS: rmDir\n");
             wait(&waiting);
             break;
 

@@ -37,4 +37,5 @@ int main(int argc, char *argv[]){
     Tar(output_name, finalPath);
     removeFile(finalPath);
 
+    printf("mergetars: Merging tars successful. \nmergetars: Final tar: [%s]\n", output_name);
 }

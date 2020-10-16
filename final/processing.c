@@ -72,7 +72,8 @@ void processFiles(char *current_path, char *final_path)
                     close (*fin_file_path);
                     copyFile(curr_file_path, fin_file_path);
                 }
-                printf("\n\tFILE: %s\n\tcurrent_path: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n", file->d_name, current_path, curr_file_path, fin_file_path);
+                // uncomment to see what processfile is doing
+                //printf("\n\tFILE: %s\n\tcurrent_path: %s\n\tENTPATH: %s\n \tFINALPATH: %s\n", file->d_name, current_path, curr_file_path, fin_file_path);
             }
         }
         closedir(folder);

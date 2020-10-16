@@ -1,5 +1,7 @@
-#chris lectures
-#makefile
+
+# Mergetars makefile
+# Adapted from lecture notes by Chris McDonald, UWA.
+
 
 PROJECT =  mergetars
 HEADERS =  $(PROJECT).h
