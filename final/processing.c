@@ -59,7 +59,7 @@ void processFiles(char *current_path, char *final_path)
                     //If final is smaller AND are the same change it. 
                     //This should also be the most recent file in the command line,
                     //if this situation were to stack.
-                        if(size_comparison != -1){ 
+                        if(size_comparison != 1){ 
                             copyFile(curr_file_path, fin_file_path);
                         }
                     } //Skip if final is newer.

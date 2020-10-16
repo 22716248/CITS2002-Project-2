@@ -74,7 +74,7 @@ int unTar(char tarfile[], char *endDir)
  **/
 int Tar(char tarname[], char *tarfile)
 {   
-    char finalLocation[200] = "./";
+    char finalLocation[MAXPATHLEN] = "./";
     strcat(finalLocation, tarname);
 
     pid_t pid;
