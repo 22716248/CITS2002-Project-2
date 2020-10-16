@@ -1,12 +1,12 @@
 #ifndef MANAGEFILES_H_   /* Include guard */
 #define MANAGEFILES_H_
 
-struct stat getStat(const char *file_path);
-struct stat getStat(const char *file_path);
-int Tar(char tarname[], char *tarfile);
-int unTar(char tarfile[], char *checkDir);
-char * makeTempFile(void);
-void removeFile(char *location);
-int copyFile(char source[], char destination[]);
+extern struct stat getStat(const char *file_path);
+extern struct stat getStat(const char *file_path);
+extern int Tar(char tarname[], char *tarfile);
+extern int unTar(char tarfile[], char *checkDir);
+extern char * makeTempFile(void);
+extern void removeFile(char *location);
+extern int copyFile(char source[], char destination[]);
 
 #endif
