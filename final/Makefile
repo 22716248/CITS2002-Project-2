@@ -1,3 +1,6 @@
+#chris lectures
+#makefile
+
 PROJECT =  mergetars
 HEADERS =  $(PROJECT).h
 OBJ     =  mergetars.o processing.o managefiles.o compare.o

@@ -1,21 +1,30 @@
 #include "headers.h"
 #include "managefiles.h"
 
+/**
+ * This provides the stat structure for a given file.
+ * Returning: struct stat s
+ * Arguments: a filepath string
+ **/
 struct stat getStat(const char *file_path){
     struct stat s;
     stat(file_path, &s);
     return s;
 }
 
-int unTar(char tarfile[], char *checkDir)
+/**
+ * Extracts a given tar archive into a location.
+ * Returning: 0 upon success, exits otherwise
+ * Arguments: tarfile, and a filepath.
+ **/
+int unTar(char tarfile[], char *endDir)
 {
-    printf("\n\nYOUR ADDRESS FOR TEMPORARY FILES IN UNTAR: %s\n", checkDir);
-    printf("YOUR TARFILE FOR TEMPORARY FILES IN UNTAR: %s\n\n", tarfile);
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"tar", "xfp", tarfile, "-C", checkDir, NULL};
-    char *tgzcommand[] = {"tar", "xzfp", tarfile, "-C", checkDir, NULL};
-    
+
+    char *tarcommand[] = {"tar", "xfp", tarfile, "-C", endDir, NULL};
+    char *tgzcommand[] = {"tar", "xzfp", tarfile, "-C", endDir, NULL};
+
     char tar[] = ".tar"; char tgz[] = ".tgz"; char gz[] = ".gz";
     char *fileType, *tarOp, *tgzOp, *gzOp;
     fileType = tarfile; tarOp = tar; tgzOp = tgz; gzOp = gz;
@@ -24,17 +33,13 @@ int unTar(char tarfile[], char *checkDir)
     char *fileTgz = strstr(fileType, tgzOp);
     char *fileGz = strstr(fileType, gzOp);
 
-
     switch (pid = fork())
     {
         case -1:
-            perror("forking error\n");
-            exit(1);
+            perror("fork() [managefiles.c] failed: ");
+            exit(EXIT_FAILURE);
         case 0:
-            printf("\tCHILD PROCESS: unTar\n");
-
             if(fileTar){
-                printf("\tUNTAR SUCCESSFUL\n");
                 execvp(tarcommand[0], tarcommand);
                 exit(waiting);
                 break;
@@ -50,12 +55,11 @@ int unTar(char tarfile[], char *checkDir)
                 break;   
             }
             else{
-                perror("\tunTar: Not a valid file type\n\n");
-                exit(1);
+                perror("\tunTar() [managefiles.c]: Not a valid file type.\n\n");
+                exit(EXIT_FAILURE);
                 break;
             }
         default:
-            printf("\tPARENT PROCESS: unTar\n");
             wait(&waiting);
             break;
 
@@ -63,27 +67,30 @@ int unTar(char tarfile[], char *checkDir)
     return 0;
 }
 
+/**
+ * Creates a given tar archive into from a location.
+ * Returning: 0 upon success, exit's otherwise
+ * Arguments: tarfile, and a filepath.
+ **/
 int Tar(char tarname[], char *tarfile)
 {   
     char finalLocation[200] = "./";
     strcat(finalLocation, tarname);
-    printf("\n\t%s\n", tarfile);
+
     pid_t pid;
     int waiting;
-    char *tarcommand[] = {"tar", "cfp", finalLocation, "-C", tarfile, ".", NULL};
+    char *tarcommand[] = {"tar" , "cfp" ,finalLocation, "-C", tarfile, ".", NULL};
 
     switch (pid = fork())
     {
         case -1:
-            perror("forking error\n");
-            exit(1);
+            perror("fork() [managefiles.c] failed: ");
+            exit(EXIT_FAILURE);
         case 0:
-            printf("\tCHILD PROCESS: Tar\n");
             execvp(tarcommand[0], tarcommand);
             exit(waiting);
             break;
         default:
-            printf("\tPARENT PROCESS: Tar\n");
             wait(&waiting);
             break;
 
@@ -91,6 +98,11 @@ int Tar(char tarname[], char *tarfile)
     return 0;
 }
 
+/**
+ * Creates a temporary directory
+ * Returning: the tempfile path
+ * Arguments: none
+ **/
 char * makeTempFile(void){
     char template[] = "/tmp/tmpdir.XXXXXX";
     char *mkdtemp(char *template);
@@ -99,12 +111,17 @@ char * makeTempFile(void){
     if(dir_name == NULL)
     {
             perror("mkdtemp failed: ");
+            exit(EXIT_FAILURE);
     }
 
     return dir_name;
 }
 
-
+/**
+ * Removes a directory, and it's contents using the rm -r command
+ * Returning: nothing
+ * Arguments: directory location
+ **/
 void removeFile(char *location){
     pid_t pid;
     int waiting;
@@ -128,6 +145,11 @@ void removeFile(char *location){
     }
 }
 
+/**
+ * Copies a file, it's contents and, its last modified time and permissions.
+ * Returning: 0 upon success, -1 for a failure
+ * Arguments: source file path, destination file path
+ **/
 int copyFile(char source[], char destination[]){
     int f;
     FILE *stream_source;
@@ -135,15 +157,15 @@ int copyFile(char source[], char destination[]){
     
     stream_source = fopen(source, "r");
     if (stream_source == NULL){
-        printf("sourcefailed\n");
+        printf("fopen() [managefiles.c] failed: Couldn't open source file.\n");
         return -1;
     }
 
     stream_distination = fopen(destination, "w");
     if (stream_distination == NULL){
-        printf("destfailed\n");
+        printf("fopen() [managefiles.c] failed: Couldn't open destination file.\n");
         fclose(stream_source);
-        return -2;
+        return -1;
     }
 
     while ((f = fgetc(stream_source)) != EOF){
@@ -155,7 +177,7 @@ int copyFile(char source[], char destination[]){
     struct stat s = getStat(source);
     int cherror = chmod(destination, s.st_mode);
     if (cherror != 0){
-        perror("chmod()");
+        perror("chmod() [managefiles.c] failed: ");
         return -1;
     }
 
@@ -164,7 +186,7 @@ int copyFile(char source[], char destination[]){
     new_s_time.actime = s.st_atime;
     int cherror2 = utime(destination, &new_s_time);
     if (cherror2 != 0){
-        perror("utime()");
+        perror("utime() [managefiles.c] failed: ");
         return -1;
     }
 

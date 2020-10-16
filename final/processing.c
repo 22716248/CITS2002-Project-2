@@ -33,37 +33,41 @@ void processFiles(char *current_path, char *final_path)
             strcat(fin_file_path, "/");
             strcat(fin_file_path, file->d_name);
             
-            //check if current path is a directory
+            //Checks if current path is a directory
             int dir_check = getDir(curr_file_path);
             if (dir_check) //directory
             {   
-                //if no directory in final exists, make one
+                //If no directory in final exists, makes one.
                 if(mkdir(fin_file_path, 0777) && errno != EEXIST){
                     perror("mkdir() [processing.c] failed: ");
+                    exit(EXIT_FAILURE);
                 }
-                //recursivly go through this directory
+                //Recursivly go through this directory
                 processFiles(curr_file_path, fin_file_path);
             }
-            else //file itself, main comparison happens here
+            else //File itself, main comparison happens here.
             {
-                //if file doesn't exist in final folder, copy it
-                //if it does, check parameters, and update accordingly
+                //If file doesn't exist in final folder, copy it.
+                //If it does, check parameters, and update accordingly.
                 if( access(fin_file_path, F_OK ) != -1 ) {
-                    //check time modified and size, since file exists
+                    //Check time modified and size, since file exists
                     int time_comparison = compareTimes(curr_file_path, fin_file_path);
                     int size_comparison = compareSize(curr_file_path, fin_file_path);
                     if(time_comparison == -1){ //final is older
                         copyFile(curr_file_path, fin_file_path);
                     } else if (time_comparison == 0){ //both same
-                    //if final is smaller AND are the same change it. this should also be the most recent file
+                    //If final is smaller AND are the same change it. 
+                    //This should also be the most recent file in the command line,
+                    //if this situation were to stack.
                         if(size_comparison != -1){ 
                             copyFile(curr_file_path, fin_file_path);
                         }
-                    } //skip if final is newer
+                    } //Skip if final is newer.
                 } else {
-                    // make file seketon and copy it over, since file doesn't exist
+                    //Make file skeleton and copy it over, since file doesn't exist.
                     if(open (fin_file_path, O_CREAT) == -1){
                         perror("open() [processing.c] failed: ");
+                        exit(EXIT_FAILURE);
                     }
                     close (*fin_file_path);
                     copyFile(curr_file_path, fin_file_path);
@@ -77,5 +81,6 @@ void processFiles(char *current_path, char *final_path)
     {
         fprintf(stderr, "\nFailed to access folder \"%s\"\n", current_path);
         perror("opendir() [processing.c] failed: ");
+        exit(EXIT_FAILURE);
     }
 }
