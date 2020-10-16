@@ -37,7 +37,7 @@ int unTar(char tarfile[], char *endDir)
     {
         case -1:
             perror("fork() [managefiles.c] failed: ");
-            return -1;
+            exit(EXIT_FAILURE);
         case 0:
             if(fileTar){
                 execvp(tarcommand[0], tarcommand);
@@ -55,8 +55,8 @@ int unTar(char tarfile[], char *endDir)
                 break;   
             }
             else{
-                perror("unTar() [managefiles.c]: Not a valid file type.\n");
-                return -1;
+                perror("\tunTar() [managefiles.c]: Not a valid file type.\n\n");
+                exit(EXIT_FAILURE);
                 break;
             }
         default:
@@ -85,7 +85,7 @@ int Tar(char tarname[], char *tarfile)
     {
         case -1:
             perror("fork() [managefiles.c] failed: ");
-            return -1;
+            exit(EXIT_FAILURE);
         case 0:
             execvp(tarcommand[0], tarcommand);
             exit(waiting);
