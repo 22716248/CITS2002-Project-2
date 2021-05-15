@@ -38,8 +38,3 @@ Successful completion of the project will develop your understanding of advanced
 # managefiles.c -> Tar (tar and untar) removeFile, makeFile
 @@ mergetars.c -> Free + ABOVE @@
 ```
-
-
-LAST TO DO's:
--CHECK ALL THE HEADERS
--cvzf and cvf
